@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+
+    <style name="TransparentTheme" parent="android:Theme.Translucent.NoTitleBar.Fullscreen">
+        <!-- 设置透明背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 透明状态栏（可选） -->
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+        <!-- 透明导航栏（可选） -->
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent
+        </item>
+    </style>
+
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"></style>
+</resources>
