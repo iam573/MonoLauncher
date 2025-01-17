@@ -16,6 +16,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="landscape"
             android:theme="@style/TransparentTheme">
             <intent-filter android:priority="99">
                 <!--     <category android:name="android.intent.category.LAUNCHER" />-->
@@ -49,7 +50,8 @@
         <activity
             android:name=".SettingActivity"
             android:exported="true"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
