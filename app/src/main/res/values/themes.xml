@@ -4,11 +4,21 @@
     <style name="TransparentTheme" parent="android:Theme.Translucent.NoTitleBar.Fullscreen">
         <!-- 设置透明背景 -->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 透明状态栏（可选） -->
+
+        <!-- 透明状态栏 -->
         <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
-        <!-- 透明导航栏（可选） -->
+
+        <!-- 透明导航栏 -->
         <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent
         </item>
+
+        <!-- 设置窗口内容区域也透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!-- 设置全屏，隐藏状态栏和导航栏 -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"></style>
