@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,13 +72,13 @@ public class SelectApp extends Activity {
         itemAdapter = new mixAdapter(SelectApp.this, R.layout.applist_item, list);
         itemAdapter.setMode(_mode);
         itemAdapter.setUri(_uri);
-/*        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.w("selectapp","1"+",i"+i+",L"+l);
                 // Toast.makeText(SelectApp.this, "Click item" + i, Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
         //ListView item 中的删除按钮的点击事件
         itemAdapter.setOnItemDeleteClickListener(new mixAdapter.onItemDeleteListener() {
             @Override

@@ -28,8 +28,8 @@ import java.util.List;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
     private int layoutId;
-    private String mode="r2";
-    private String uri="";
+    private String mode = "r2";
+    private String uri = "";
 //    SQLiteDatabase db=SQLiteDatabase.openOrCreateDatabase(getContext().getDatabasePath("app"),null);
 
     public ItemAdapter(Context context, int layoutId, List<Item> list) {
@@ -58,7 +58,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView item_packageName;
     }
 
-  //  @NonNull
+    //  @NonNull
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         final Item item = getItem(position);
@@ -92,46 +92,45 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                select(Name,packageName,className);
+                select(Name, packageName, className);
             }
         });
         return convertView;
     }
 
 
+    public void select(String Name, String packageName, String className) {
 
-    public void select(String Name, String packageName, String className){
-
-        if(mode.equals("2nd")){
-            SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+        if (mode.equals("2nd")) {
+            SharedPreferences.Editor editor = getContext().getSharedPreferences("setting", MODE_MULTI_PROCESS).edit();
             editor.putString("app_2nd", packageName);
             editor.putString("label_2nd", Name);
-            editor.putString("class_2nd",className);
+            editor.putString("class_2nd", className);
             editor.commit();
-            Intent intent=new Intent(getContext() , SettingActivity.class);
+            Intent intent = new Intent(getContext(), SettingActivity.class);
             getContext().startActivity(intent);
-        }else{
-            PackageManager pm =getContext(). getPackageManager();
+        } else {
+            PackageManager pm = getContext().getPackageManager();
             Intent intent = pm.getLaunchIntentForPackage(packageName);
 
             if (intent != null) {
 
                 {
-                    SharedPreferences.Editor editor = getContext(). getSharedPreferences("setting",MODE_MULTI_PROCESS).edit();
+                    SharedPreferences.Editor editor = getContext().getSharedPreferences("setting", MODE_MULTI_PROCESS).edit();
                     editor.putString("app", packageName);
                     editor.putString("label", Name);
-                    editor.putString("class",className);
-                    editor.putString("uri",uri);
-                    editor.putString("mode",mode);
+                    editor.putString("class", className);
+                    editor.putString("uri", uri);
+                    editor.putString("mode", mode);
                     editor.commit();
                 }
 
                 //   getContext().startActivity(intent);
-                intent=new Intent(getContext() ,SettingActivity.class);
+                intent = new Intent(getContext(), SettingActivity.class);
                 getContext().startActivity(intent);
 
-            }else{
-                Toast.makeText(getContext(),R.string.error_could_not_start,Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), R.string.error_could_not_start, Toast.LENGTH_SHORT).show();
             }
 
         }

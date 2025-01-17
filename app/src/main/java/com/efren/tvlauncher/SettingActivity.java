@@ -28,31 +28,27 @@ import java.util.List;
 import java.util.Objects;
 
 public class SettingActivity extends Activity {
-    PackageManager packageManager;
-
-    String mode = "r2";
-
-    String _mode = "";
-    String _uri = "";
-    String _action = "";
-    String _data = "";
-
-    int _intent_type = 0;
-
-    TextView Text_PackageName;
-    private View app_view_2nd;
+    private PackageManager packageManager;
+    private String mode = "r2";
+    private String _mode = "";
+    private String _uri = "";
+    private String _action = "";
+    private String _data = "";
+    private int _intent_type = 0;
+    private TextView packageName;
+    private View secLauncherView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        packageManager = getPackageManager();
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        Text_PackageName = (TextView) findViewById(R.id.text_pakageName);
-        app_view_2nd = (View) findViewById(R.id.app_view_2nd);
         checkAndPermission();
+        packageManager = getPackageManager();
+        setContentView(R.layout.activity_setting);
+        packageName = findViewById(R.id.text_pakageName);
+        secLauncherView = findViewById(R.id.app_view_2nd);
+
         go();
-        go2ndLauncher();
+        openSecLauncher();
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,7 +285,7 @@ public class SettingActivity extends Activity {
     public void onResume() {
         super.onResume();
         go();
-        go2ndLauncher();
+        openSecLauncher();
     }
 
     public void go() {
@@ -312,7 +308,7 @@ public class SettingActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Text_PackageName.setText(label);
+                    packageName.setText(label);
                     //耗时操作，需要在子线程中完成操作后通知主线程实现UI更新
                     String desc;
                     if (uri.length() > 0) {
@@ -335,7 +331,7 @@ public class SettingActivity extends Activity {
     }
 
 
-    public void go2ndLauncher() {
+    public void openSecLauncher() {
         SharedPreferences read = getSharedPreferences("setting", MODE_MULTI_PROCESS);
         boolean apply2nd = read.getBoolean("apply2nd", false);
         CheckBox cbx2ndLauncher = ((CheckBox) findViewById(R.id.cbx_2nd_launcher));
@@ -364,10 +360,10 @@ public class SettingActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ((ImageView) app_view_2nd.findViewById(R.id.item_img)).setImageDrawable(icon);
-                    ((TextView) app_view_2nd.findViewById(R.id.item_text)).setText(label_2nd);
-                    ((TextView) app_view_2nd.findViewById(R.id.item_packageName)).setText(app);
-                    app_view_2nd.setOnClickListener(new View.OnClickListener() {
+                    ((ImageView) secLauncherView.findViewById(R.id.item_img)).setImageDrawable(icon);
+                    ((TextView) secLauncherView.findViewById(R.id.item_text)).setText(label_2nd);
+                    ((TextView) secLauncherView.findViewById(R.id.item_packageName)).setText(app);
+                    secLauncherView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent intent = packageManager.getLaunchIntentForPackage(app);
@@ -427,16 +423,11 @@ public class SettingActivity extends Activity {
     public void checkAndPermission() {
         Log.i("checkPermission", String.valueOf(Build.VERSION.SDK_INT));
         if (Build.VERSION.SDK_INT >= 23) {
-            List<String> lackedPermission = new ArrayList<String>();
-//            if (!(this.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)== PackageManager.PERMISSION_GRANTED)) {
-//                lackedPermission.add(Manifest.permission.READ_PHONE_STATE);
-//            }
+            List<String> lackedPermission = new ArrayList<>();
             if (!(this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                 lackedPermission.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
-            // 权限都已经有了，那么直接调用SDK
-            if (lackedPermission.size() == 0) {
-            } else {
+            if (lackedPermission.isEmpty()) {
                 // 请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限，如果获得权限就可以调用SDK，否则不要调用SDK。
                 String[] requestPermissions = new String[lackedPermission.size()];
                 lackedPermission.toArray(requestPermissions);

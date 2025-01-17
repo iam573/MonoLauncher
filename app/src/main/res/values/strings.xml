@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mono</string>
+    <string name="app_name">Mono启动器</string>
     <string name="about_main" >Choose any application as Launcher.</string>
     <string name="about_author" translatable="false">By tumuyan,\n2018.11 to 2024.04</string>
     <string name="title_mode">Select Mode</string>
