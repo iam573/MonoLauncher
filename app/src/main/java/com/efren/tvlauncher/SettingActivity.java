@@ -3,6 +3,8 @@ package com.efren.tvlauncher;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -46,9 +49,15 @@ public class SettingActivity extends Activity {
         setContentView(R.layout.activity_setting);
         packageName = findViewById(R.id.text_pakageName);
         secLauncherView = findViewById(R.id.app_view_2nd);
-
         go();
         openSecLauncher();
+        findViewById(R.id.button4).setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

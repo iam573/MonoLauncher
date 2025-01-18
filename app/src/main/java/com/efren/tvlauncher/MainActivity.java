@@ -19,7 +19,6 @@ import java.io.File;
 
 public class MainActivity extends Activity {
     private PackageManager packageManager;
-    private final String THIS_PACKAGE = "com.tumuyan.fixedplay";
     private long splash_time = 0;
     private String mode = "r2";
     private String action = "";
@@ -150,7 +149,7 @@ public class MainActivity extends Activity {
             }
         }
 
-        if (!app.isBlank() && !app.equals(THIS_PACKAGE)) {
+        if (!app.isBlank() && !app.equals(this.getPackageName())) {
             Intent intent = new Intent();
             switch (mode) {
                 case "r2": {
